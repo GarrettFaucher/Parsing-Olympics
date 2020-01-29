@@ -12,4 +12,8 @@ def parse(input):
     
 def print_welcome():
 
-    welcomemsg = "This program searches a database of the London 2012 Olympic gold medalists and the countries they are from. \n\nTo view a list of available commands, type 'help'."
+    welcomemsg = "This program searches a database of the London 2012 Olympic gold medalists and the countries they are from. \n\nTo view a list of available commands, type 'help'.\n\nExample format: about 'John Doe'"
+    
+    print(welcomemsg)
+    
+print_welcome()
