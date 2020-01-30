@@ -1,5 +1,47 @@
 # THis is the file for the Python CLI
 
+def process_data(filename):
+    """
+    Takes csv file name string as argument, splits columns into separate lists. The zeroth value of each list is the name of the column.
+    Returns a 2d list of these lists. Zeroth value is first col, and so on
+    """
+    f = open(filename, 'r')
+    data = f.read()
+    f.close()
+    data = data.split("\n")
+    
+    x = len(data)
+    y = len(data[0].split(","))
+    
+    tmp = []
+    #separate into array, needs rotating
+    for row in data:
+        entry = row.split(",")
+        tmp.append(entry)
+        
+    out = []
+    titles = []
+    #fill titles
+    for title in tmp[0]:
+        titles.append(title)
+    
+    #fill data
+    for i in range(len(tmp[1])):
+        col = []
+        for j in range(1, len(tmp)):
+            if filename == "summer.csv" and i == 3:
+                break
+            if filename == "summer.csv" and i==2:
+                col.append(tmp[j][i]+","+tmp[j][i+1])
+            else:
+                col.append(tmp[j][i])
+        if col != []:
+            out.append(col)
+        
+    for i in range(len(out)):
+        out[i].insert(0,titles[i])
+        
+    return out
 
 # This method will split a string into an array of strings of keywords and
 # variables to be used in SQL queries.
@@ -21,3 +63,4 @@ def print_welcome():
     print(welcomemsg)
     
 print_welcome()
+
