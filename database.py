@@ -2,6 +2,7 @@ import sqlite3
 
 class Database:
 
+    # This method makes our database, table, and populates the data
     def load_data(self):
         conn = sqlite3.connect("database.db");
         c = conn.cursor()
@@ -51,11 +52,9 @@ class Database:
         # close connection
         conn.close()
 
+    # Takes csv file name string as argument, splits columns into separate lists. The zeroth value of each list is the name of the column.
+    # Returns a 2d list of these lists. Zeroth value is first col, and so on
     def __process_data(filename):
-        """
-        Takes csv file name string as argument, splits columns into separate lists. The zeroth value of each list is the name of the column.
-        Returns a 2d list of these lists. Zeroth value is first col, and so on
-        """
         f = open(filename, 'r')
         data = f.read()
         f.close()
