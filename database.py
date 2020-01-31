@@ -43,7 +43,7 @@ class database:
 
         for i in range(len(summer_data)):
             query_string = "INSERT INTO tblSummerGames VALUES( ?, ?, ?, ?, ?, ?)"
-            c.execute(query_string, (sport[i], discipline[i], athlete[i], country[i], gender[i], event[i]))
+            c.execute(query_string, (sport[i], discipline[i], athlete[i], country_code[i], gender[i], event[i]))
 
         # Save (commit) the changes
         conn.commit()
