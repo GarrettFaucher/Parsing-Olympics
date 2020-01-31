@@ -77,9 +77,9 @@ in_use = True
 
 while in_use:
     
-    command = input(">").lower()
+    command = input(">")
     
-    if command == "stop":
+    if command.lower() == "stop":
         in_use = False
 
     split_command = parse(command)
