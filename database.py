@@ -1,7 +1,8 @@
 import sqlite3
 
-class database:
+class Database:
 
+    # This method makes our database, table, and populates the data
     def load_data(self):
         conn = sqlite3.connect("database.db");
         c = conn.cursor()
@@ -22,18 +23,18 @@ class database:
                 "CREATE TABLE tblSummerGames(fldSport VARCHAR(74), fldDiscipline VARCHAR(74), fldAthlete VARCHAR(74), fnkCountryCode VARCHAR(3), fldGender VARCHAR(6), fldEvent VARCHAR(74), FOREIGN KEY (fnkCountryCode) REFERENCES tblCountries(pmkCountryCode));")
 
         # populate data in tblCountries
-        country_data = database.process_data("dictionary.csv")
+        country_data = Database.__process_data("dictionary.csv")
         country = country_data[0]
         code = country_data[1]
         population = country_data[2]
         gdp = country_data[3]
 
-        for index in range(len(code)):
-            query_string = "INSERT INTO tblCountries VALUES( ?, ?, ?, ?)"
-            c.execute(query_string, (country[index], code[index], population[index], gdp[index]))
+        for i in range(len(code)):
+            query_string = "INSERT INTO tblCountries(fldCountry, pmkCountryCode, fldPopulation, fldGDP) VALUES( ?, ?, ?, ?)"
+            c.execute(query_string, (country[i], code[i], population[i], gdp[i]))
 
         # populate data in tblSummerGames
-        summer_data = database.process_data("summer.csv")
+        summer_data = Database.__process_data("summer.csv")
         sport = summer_data[0]
         discipline = summer_data[1]
         athlete = summer_data[2]
@@ -41,9 +42,9 @@ class database:
         gender = summer_data[4]
         event = summer_data[5]
 
-        for i in range(len(summer_data)):
+        for j in range(len(summer_data)):
             query_string = "INSERT INTO tblSummerGames VALUES( ?, ?, ?, ?, ?, ?)"
-            c.execute(query_string, (sport[i], discipline[i], athlete[i], country_code[i], gender[i], event[i]))
+            c.execute(query_string, (sport[j], discipline[j], athlete[j], country_code[j], gender[j], event[j]))
 
         # Save (commit) the changes
         conn.commit()
@@ -51,11 +52,9 @@ class database:
         # close connection
         conn.close()
 
-    def process_data(filename):
-        """
-        Takes csv file name string as argument, splits columns into separate lists. The zeroth value of each list is the name of the column.
-        Returns a 2d list of these lists. Zeroth value is first col, and so on
-        """
+    # Takes csv file name string as argument, splits columns into separate lists. The zeroth value of each list is the name of the column.
+    # Returns a 2d list of these lists. Zeroth value is first col, and so on
+    def __process_data(filename):
         f = open(filename, 'r')
         data = f.read()
         f.close()

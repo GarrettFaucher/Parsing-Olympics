@@ -91,6 +91,7 @@ def print_welcome():
 
     print(welcomemsg)
 
+# This method prints a list of available commands.
 def print_help():
     
     help_msg = "Enter a command in the form of one of these acceptable formats:\n\n" \
@@ -102,10 +103,15 @@ def print_help():
 
     print(help_msg)
 
+def print_input_error(error):
+    error_msg= "INPUT ERROR.  " + error + " Is not a valid query \n type 'help' to view a list of available commands\n"
+    print(error_msg)
+
+
 print_welcome()
 
 print_help()
-    
+
 in_use = True
 
 while in_use:
@@ -123,3 +129,5 @@ while in_use:
 
     split_command = parse(command)
     print(split_command)
+
+    
