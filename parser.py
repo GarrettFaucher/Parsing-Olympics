@@ -77,6 +77,10 @@ in_use = True
 
 while in_use:
     
-    command = input(">")
-    if input.lower == "stop":
+    command = input(">").lower()
+    
+    if command == "stop":
         in_use = False
+
+    split_command = parse(command)
+    print(split_command)
