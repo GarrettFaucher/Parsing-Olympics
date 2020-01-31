@@ -28,9 +28,9 @@ class Database:
         population = country_data[2]
         gdp = country_data[3]
 
-        for index in range(len(code)):
-            query_string = "INSERT INTO tblCountries VALUES( ?, ?, ?, ?)"
-            c.execute(query_string, (country[index], code[index], population[index], gdp[index]))
+        for i in range(len(code)):
+            query_string = "INSERT INTO tblCountries(fldCountry, pmkCountryCode, fldPopulation, fldGDP) VALUES( ?, ?, ?, ?)"
+            c.execute(query_string, (country[i], code[i], population[i], gdp[i]))
 
         # populate data in tblSummerGames
         summer_data = Database.__process_data("summer.csv")
@@ -41,9 +41,9 @@ class Database:
         gender = summer_data[4]
         event = summer_data[5]
 
-        for i in range(len(summer_data)):
+        for j in range(len(summer_data)):
             query_string = "INSERT INTO tblSummerGames VALUES( ?, ?, ?, ?, ?, ?)"
-            c.execute(query_string, (sport[i], discipline[i], athlete[i], country_code[i], gender[i], event[i]))
+            c.execute(query_string, (sport[j], discipline[j], athlete[j], country_code[j], gender[j], event[j]))
 
         # Save (commit) the changes
         conn.commit()
