@@ -79,6 +79,7 @@ def print_welcome():
 
     print(welcomemsg)
 
+# This method prints a list of available commands.
 def print_help():
     
     help_msg = "Enter a command in the form of one of these acceptable formats:\n\n" \
@@ -93,7 +94,7 @@ def print_help():
 print_welcome()
 
 print_help()
-    
+
 in_use = True
 
 while in_use:
@@ -111,3 +112,5 @@ while in_use:
 
     split_command = parse(command)
     print(split_command)
+
+    
