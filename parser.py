@@ -73,4 +73,10 @@ print_welcome()
 
 print_help()
     
+in_use = True
 
+while in_use:
+    
+    command = input(">")
+    if input.lower == "stop":
+        in_use = False
