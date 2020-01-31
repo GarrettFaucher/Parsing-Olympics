@@ -80,7 +80,6 @@ def print_welcome():
     print(welcomemsg)
 
 def print_help():
-<<<<<<< Updated upstream
     
     help_msg = "Enter a command in the form of one of these acceptable formats:\n\n" \
                "List 'Value'                        - Lists all types of value specified\n" \
@@ -88,18 +87,12 @@ def print_help():
                "About 'Athlete'                     - Returns information about athlete specified. \n" \
                "'Event' winner                      - Returns the winner for the event specififed. \n" \
                "'Country' population                - Returns the population of the country specified\n"
-=======
-
-    help_msg = "Enter a command in the form of one of these acceptable formats:\n\n  List 'Country'\n  List 'Discipline'\n 'Country' 'Discipline' athlete\n  About 'Athlete'\n 'Event' winner\n 'Country' population\n"
->>>>>>> Stashed changes
 
     print(help_msg)
-
 
 print_welcome()
 
 print_help()
-<<<<<<< Updated upstream
     
 in_use = True
 
@@ -118,5 +111,3 @@ while in_use:
 
     split_command = parse(command)
     print(split_command)
-=======
->>>>>>> Stashed changes
