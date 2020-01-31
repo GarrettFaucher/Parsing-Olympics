@@ -86,6 +86,12 @@ while in_use:
     
     if command.lower() == "stop":
         in_use = False
+        
+    if command.lower() == "welcome":
+        print_welcome()
+    
+    if command.lower() == "help":
+        print_help()
 
     split_command = parse(command)
     print(split_command)
