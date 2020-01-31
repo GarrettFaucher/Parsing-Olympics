@@ -91,6 +91,11 @@ def print_help():
 
     print(help_msg)
 
+def print_input_error(error):
+    error_msg= "INPUT ERROR.  " + error + " Is not a valid query \n type 'help' to view a list of available commands\n"
+    print(error_msg)
+
+
 print_welcome()
 
 print_help()
