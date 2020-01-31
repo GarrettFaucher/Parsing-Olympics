@@ -52,6 +52,19 @@ class Database:
         # close connection
         conn.close()
 
+
+    # Pass in a sample query to test the output
+    def test_select_query(self, query):
+        conn = sqlite3.connect("database.db");
+        c = conn.cursor()
+
+        c.execute(query)
+        return c.fetchall()
+
+        # close connection
+        conn.close()
+
+
     # Takes csv file name string as argument, splits columns into separate lists. The zeroth value of each list is the name of the column.
     # Returns a 2d list of these lists. Zeroth value is first col, and so on
     def __process_data(filename):
