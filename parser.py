@@ -64,7 +64,12 @@ def print_welcome():
 
 def print_help():
     
-    help_msg = "Enter a command in the form of one of these acceptable formats:\n\n  List 'Country'\n  List 'Discipline'\n 'Country' 'Discipline' athlete\n  About 'Athlete'\n 'Event' winner\n 'Country' population\n"
+    help_msg = "Enter a command in the form of one of these acceptable formats:\n\n" \
+               "List 'Value'                        - Lists all types of value specified\n" \
+               "'Country' 'Discipline' athlete      - Returns athletes from the country and discipline specified. \n" \
+               "About 'Athlete'                     - Returns information about athlete specified. \n" \
+               "'Event' winner                      - Returns the winner for the event specififed. \n" \
+               "'Country' population                - Returns the population of the country specified\n"
 
     print(help_msg) 
 
