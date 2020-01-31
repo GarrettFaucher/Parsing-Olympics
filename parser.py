@@ -50,25 +50,37 @@ def process_data(filename):
 def parse(input):
 
     # Finds the string inside of the quotes
-    countS = 0
+    countS = -1
     countE = 0
+    lastE = 0
     start = False
+    inQuotes = []
     for i in range(len(input)):
         if (input[i] == "\""):
-            if countS == 0:
+            if countS == -1:
                 countS = i+1
             else:
                 countE = i
-    inQuotes = input[countS:countE]
+                lastE = i
+                inQuotes.append(input[countS:countE])
+                countS = -1
+                countE = 0
 
+    print(inQuotes)
     # Removes string inside quotes
-    smaller = input.replace(inQuotes, "")
+    smaller = input
+    for s in inQuotes:
+        smaller = smaller.replace(s, "")
+        print(smaller)
     data = smaller.split(" ") # Split by spaces
+    print(data)
 
     # Replaces quotes together with the spaced info from inside the quotes
+    index = 0
     for i in range(len(data)):
         if data[i] == "\"\"":
-            data[i] = inQuotes
+            data[i] = inQuotes[index]
+            index += 1
 
     return data
 
