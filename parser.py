@@ -61,6 +61,16 @@ def print_welcome():
     welcomemsg = "\nThis program searches a database of the London 2012 Olympic gold medalists and the countries they are from. \n\nTo view a list of available commands, type 'help'.\n\nCommands follow the general format of <argument> <argument> <return>, e.g.: \n\n>Mexico swimming athlete \n\nwill return the list of Mexican athletes who medaled in swimming events."
 
     print(welcomemsg)
+
+def print_help():
+    
+    help_msg = "Enter a command in the form of one of these acceptable formats:\n\n  List 'Country'\n  List 'Discipline'\n 'Country' 'Discipline' athlete\n  About 'Athlete'\n 'Event' winner\n 'Country' population\n"
+
+    print(help_msg) 
+
     
 print_welcome()
+
+print_help()
+    
 
