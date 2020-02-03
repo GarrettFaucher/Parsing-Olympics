@@ -84,6 +84,14 @@ def parse(input):
 
     return data
 
+# This method will take a parsed list and reorganise the order and convert
+# keywords to table names.
+# Accepts: list
+# Returns: list
+def converter(input):
+    data = []
+    return data
+
 
 def print_welcome():
 
