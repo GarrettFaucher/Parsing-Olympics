@@ -90,6 +90,26 @@ def parse(input):
 # Returns: list
 def converter(input):
     data = []
+
+    for i in range(len(input)):
+        if (input[i] == "country" or input[i] == "Country" or input[i] == "COUNTRY"):
+            data[i] = "fldCountry"
+        elif (input[i] == "population" or input[i] == "Population" or input[i] == "population"):
+            data[i] = "fldPopulation"
+        elif (input[i] == "gdp" or input[i] == "Gdp" or input[i] == "GDP"):
+            data[i] = "fldGDP"
+        elif (input[i] == "sport" or input[i] == "Sport" or input[i] == "SPORT"):
+            data[i] = "fldSport"
+        elif (input[i] == "discipline" or input[i] == "Discipline" or input[i] == "DISCIPLINE"):
+            data[i] = "fldDiscipline"
+        elif (input[i] == "athlete" or input[i] == "Athlete" or input[i] == "ATHLETE"):
+            data[i] = "fldAthlete"
+        elif (input[i] == "gender" or input[i] == "Gender" or input[i] == "GENDER"):
+            data[i] = "fldGender"
+        elif (input[i] == "event" or input[i] == "Event" or input[i] == "EVENT"):
+            data[i] = "fldEvent"
+
+    print(data)
     return data
 
 
