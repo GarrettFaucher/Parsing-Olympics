@@ -86,8 +86,8 @@ def parse(input):
 
 # This method will take a parsed list and reorganise the order and convert
 # keywords to table names.
-# Accepts: list
-# Returns: list
+# Accepts: parsed list
+# Returns: list with converted names from english
 def converter(input):
     data = []
 
@@ -108,6 +108,8 @@ def converter(input):
             data[i] = "fldGender"
         elif (input[i] == "event" or input[i] == "Event" or input[i] == "EVENT"):
             data[i] = "fldEvent"
+        else:
+            data[i] = input[i]
 
     print(data)
     return data
