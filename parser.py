@@ -44,7 +44,7 @@ def parse(input):
 
 def print_welcome():
 
-    welcomemsg = "\nThis program searches a database of the London 2012 Olympic gold medalists and the countries they are from. \n\nTo view a list of available commands, type 'help'.\n\nCommands follow the general format of <argument> <argument> <return>, e.g.: \n\n>'Mexico' 'swimming' athlete \n\nwill return the list of Mexican athletes who medaled in swimming events.\nTo view this message again, enter 'welcome'. \nTo view the list of acceptable commands, enter 'help'."
+    welcomemsg = """\nThis program searches a database of the London 2012 Olympic gold medalists and the countries they are from. \n\nTo view a list of available commands, type 'help'.\n\nCommands follow the general format of <argument> <argument> <return>, e.g.: \n\n>"Mexico" "swimming" athlete \n\nwill return the list of Mexican athletes who medaled in swimming events.\nTo view this message again, enter 'welcome'. \nTo view the list of acceptable commands, enter 'help'."""
 
     print(welcomemsg)
 
@@ -53,11 +53,13 @@ def print_welcome():
 def print_help():
     
     help_msg = "Enter a command in the form of one of these acceptable formats:\n\n" \
-               "List 'Value'                        - Lists all types of value specified\n" \
-               "'Country' 'Discipline' athlete      - Returns athletes from the country and discipline specified. \n" \
-               "About 'Athlete'                     - Returns information about athlete specified. \n" \
-               "'Event' winner                      - Returns the winner for the event specififed. \n" \
-               "'Country' population                - Returns the population of the country specified\n"
+               'List "Value"                        - Lists all types of value specified\n' \
+               '"Country" "Discipline" athlete      - Returns athletes from the country and discipline specified. \n' \
+               'About "Athlete"                     - Returns information about athlete specified. \n' \
+               '"Event" winner                      - Returns the winner for the event specififed. \n' \
+               '"Country" population                - Returns the population of the country specified\n'
+               '\n'
+               'All arguments should be passed with quotation marks, and names should follow the form of "LASTNAME, Firstname".'
 
     print(help_msg)
 
