@@ -1,5 +1,6 @@
 import sqlite3
 
+
 class Database:
 
     # This method makes our database, table, and populates the data
@@ -52,7 +53,6 @@ class Database:
         # close connection
         conn.close()
 
-
     # Pass in a sample query to test the output
     def test_select_query(self, query):
         conn = sqlite3.connect("database.db");
@@ -64,8 +64,38 @@ class Database:
         # close connection
         conn.close()
 
+    # This method will take a parsed list and reorganise the order and convert
+    # keywords to table names.
+    # Accepts: parsed list
+    # Returns: list with converted names from english
+    def __converter(input):
+        data = []
 
-    # Takes csv file name string as argument, splits columns into separate lists. The zeroth value of each list is the name of the column.
+        for i in range(len(input)):
+            if input[i].lower() == "country":
+                data.insert(i, "fldCountry")
+            elif input[i].lower() == "population":
+                data.insert(i, "fldPopulation")
+            elif input[i].lower() == "gdp":
+                data.insert(i, "fldGDP")
+            elif input[i].lower() == "sport":
+                data.insert(i, "fldSport")
+            elif input[i].lower() == "discipline":
+                data.insert(i, "fldDiscipline")
+            elif input[i].lower() == "athlete":
+                data.insert(i, "fldAthlete")
+            elif input[i].lower() == "gender":
+                data.insert(i, "fldGender")
+            elif input[i].lower() == "event":
+                data.insert(i, "fldEvent")
+            else:
+                data.insert(i, input[i])
+
+        # print(data)
+        return data
+
+    # Takes csv file name string as argument, splits columns into separate lists. The zeroth value of each list is the
+    # name of the column.
     # Returns a 2d list of these lists. Zeroth value is first col, and so on
     def __process_data(filename):
         f = open(filename, 'r')
@@ -105,3 +135,4 @@ class Database:
             out[i].insert(0, titles[i])
 
         return out
+
