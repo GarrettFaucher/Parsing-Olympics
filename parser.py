@@ -23,14 +23,11 @@ def parse(input):
                 countS = -1
                 countE = 0
 
-    print(inQuotes)
     # Removes string inside quotes
     smaller = input
     for s in inQuotes:
         smaller = smaller.replace(s, "")
-        print(smaller)
     data = smaller.split(" ") # Split by spaces
-    print(data)
 
     # Replaces quotes together with the spaced info from inside the quotes
     index = 0
@@ -57,8 +54,9 @@ def print_help():
                '"Country" "Discipline" athlete      - Returns athletes from the country and discipline specified. \n' \
                'About "Athlete"                     - Returns information about athlete specified. \n' \
                '"Event" winner                      - Returns the winner for the event specififed. \n' \
-               '"Country" population                - Returns the population of the country specified\n'
-               '\n'
+               '"Country" population                - Returns the population of the country specified\n'\
+               'stop                                - Ends the program\n'\
+               '\n'\
                'All arguments should be passed with quotation marks, and names should follow the form of "LASTNAME, Firstname".'
 
     print(help_msg)
@@ -89,6 +87,5 @@ while in_use:
         print_help()
 
     split_command = parse(command)
-    print(split_command)
 
     
