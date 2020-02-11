@@ -50,11 +50,12 @@ def print_welcome():
 def print_help():
     
     help_msg = "Enter a command in the form of one of these acceptable formats:\n\n" \
-               'List "Value"                        - Lists all types of value specified\n' \
-               '"Country" "Discipline" athlete      - Returns athletes from the country and discipline specified. \n' \
-               'About "Athlete"                     - Returns information about athlete specified. \n' \
-               '"Event" winner                      - Returns the winner for the event specififed. \n' \
+               'List discipline                     - Lists all disciplines in the table\n' \
+               '"Country" "Discipline" athlete      - Returns athlete(s) from the country and discipline specified. \n' \
+               'About "Athlete"                     - Returns the country and event(s) of the athlete specified. \n' \
+               '"Athlete" event                     - Returns the event(s) of the given athlete. \n' \
                '"Country" population                - Returns the population of the country specified\n'\
+               '"Country" gdp                       - Returns the GDP of the country specified\n'\
                'stop                                - Ends the program\n'\
                '\n'\
                'All arguments should be passed with quotation marks, and names should follow the form of "LASTNAME, Firstname".'
@@ -62,10 +63,9 @@ def print_help():
     print(help_msg)
 
 
-def print_input_error(error):
-    error_msg= "INPUT ERROR.  " + error + " Is not a valid query \n type 'help' to view a list of available commands\n"
+def print_input_error():
+    error_msg= "INPUT ERROR. This is not an acceptable command. Enter help for a list of commands." 
     print(error_msg)
-
 
 print_welcome()
 

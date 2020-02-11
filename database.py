@@ -94,6 +94,39 @@ class Database:
         # print(data)
         return data
 
+    # This method will take a converted list and will assign column names
+    # associated with the commands. Checks that number of strings in list matches
+    # the number of strings the corresponding command. 
+    # Accepts: converted list
+    # Returns: list with user input paired with column names
+    def command_to_columns(input):
+        cols = []
+        if len(input) == 2 :
+            if input[1] == "fldPopulation":
+                cols=[("fldCountry",input[0]),"fldPopulation")
+                    
+            elif input[1] == "fldGDP":
+                cols=[("fldCountry",input[0]),"fldGDP"]
+                
+            elif input[1] == "fldDiscipline" and input[0]=="list":
+                cols=[("fldDiscipline")]
+                    
+            elif input[1] == "fldEvent":
+                cols = [("fldAthlete", input[0]),"fldEvent"]
+
+            elif input[0] == "about":
+                cols=[("")]
+
+        elif len(input) == 3 :             
+            if input[3] == "fldAthlete":       
+                cols= [("fldCountry",input[0]), ("fldDiscipline",input[1]),"fldAthlete"]
+
+        else :
+            print_input_error()
+        return cols
+
+
+
     # Takes csv file name string as argument, splits columns into separate lists. The zeroth value of each list is the
     # name of the column.
     # Returns a 2d list of these lists. Zeroth value is first col, and so on
