@@ -3,24 +3,62 @@ import sqlite3
 
 class Database:
 
+    # Initializer / Instance Attributes
+    def __init__(self):
+        self.conn = sqlite3.connect("database.db");
+        self.c = self.conn.cursor()
+
+    # This executes the query for 'COUNTRY gdp'
+    # @param country - the given country
+    # @return a list of GDPs
+    def gdp_query(self, country):
+        self.c.execute("SELECT fldGDP FROM tblCountries WHERE pmkCountryCode = ?;", (country,))
+        return self.c.fetchall()
+
+    # This executes the query for 'COUNTRY population'
+    # @param population - the given population
+    # @return a list of populations
+    def population_query(self, population):
+        self.c.execute("SELECT fldCountry FROM tblCountries WHERE fldPopulation = ?;", (population,))
+        return self.c.fetchall()
+
+    # This executes the query for 'LIST discipline'
+    # @return a list all disciplines
+    def list_query(self):
+        self.c.execute("SELECT fldDiscipline FROM tblSummerGames;")
+        return self.c.fetchall()
+
+    # This executes the query for 'COUNTRY DISCIPLINE athlete'
+    # @param country - the given country
+    # @param discipline - the given discipline
+    # @return a list of athletes
+    def athlete_query(self, country, discipline):
+        self.c.execute("SELECT fldAthlete FROM tblSummerGames WHERE fnkCountryCode = ?, fldDiscipline = ?;", (country, discipline,))
+        return self.c.fetchall()
+
+    # This executes the query for 'ATHLETE event'
+    # @param athlete - the given athlete must be in format '"LAST, First"'
+    # @return a list of events
+    def event_query(self, athlete):
+        self.c.execute("SELECT fldEvent FROM tblSummerGames WHERE fldAthlete = ?;", (athlete,))
+        return self.c.fetchall()
+
     # This method makes our database, table, and populates the data
     def load_data(self):
-        conn = sqlite3.connect("database.db");
-        c = conn.cursor()
 
         # Create tables
         try:
-            c.execute(
+            self.c.execute(
                 "CREATE TABLE tblCountries(fldCountry VARCHAR(74), pmkCountryCode VARCHAR(3), fldPopulation int(255), fldGDP int(255), PRIMARY KEY (pmkCountryCode));")
-            c.execute(
+            self.c.execute(
                 "CREATE TABLE tblSummerGames(fldSport VARCHAR(74), fldDiscipline VARCHAR(74), fldAthlete VARCHAR(74), fnkCountryCode VARCHAR(3), fldGender VARCHAR(6), fldEvent VARCHAR(74), FOREIGN KEY (fnkCountryCode) REFERENCES tblCountries(pmkCountryCode));")
         except sqlite3.OperationalError:
             # overwrite tables if they are already made
-            c.execute("DROP TABLE tblCountries")
-            c.execute("DROP TABLE tblSummerGames")
-            c.execute(
+            self.c.execute("DROP TABLE tblCountries")
+            self.c.execute("DROP TABLE tblSummerGames")
+            self.c.execute(
                 "CREATE TABLE tblCountries(fldCountry VARCHAR(74), pmkCountryCode VARCHAR(3), fldPopulation int(255), fldGDP int(255), PRIMARY KEY (pmkCountryCode));")
-            c.execute(
+            self.c.execute(
                 "CREATE TABLE tblSummerGames(fldSport VARCHAR(74), fldDiscipline VARCHAR(74), fldAthlete VARCHAR(74), fnkCountryCode VARCHAR(3), fldGender VARCHAR(6), fldEvent VARCHAR(74), FOREIGN KEY (fnkCountryCode) REFERENCES tblCountries(pmkCountryCode));")
 
         # populate data in tblCountries
@@ -32,7 +70,7 @@ class Database:
 
         for i in range(len(code)):
             query_string = "INSERT INTO tblCountries(fldCountry, pmkCountryCode, fldPopulation, fldGDP) VALUES( ?, ?, ?, ?)"
-            c.execute(query_string, (country[i], code[i], population[i], gdp[i]))
+            self.c.execute(query_string, (country[i], code[i], population[i], gdp[i]))
 
         # populate data in tblSummerGames
         summer_data = Database.__process_data("summer.csv")
@@ -45,24 +83,15 @@ class Database:
 
         for j in range(len(summer_data)):
             query_string = "INSERT INTO tblSummerGames VALUES( ?, ?, ?, ?, ?, ?)"
-            c.execute(query_string, (sport[j], discipline[j], athlete[j], country_code[j], gender[j], event[j]))
+            self.c.execute(query_string, (sport[j], discipline[j], athlete[j], country_code[j], gender[j], event[j]))
 
         # Save (commit) the changes
-        conn.commit()
-
-        # close connection
-        conn.close()
+        self.conn.commit()
 
     # Pass in a sample query to test the output
     def test_select_query(self, query):
-        conn = sqlite3.connect("database.db");
-        c = conn.cursor()
-
-        c.execute(query)
-        return c.fetchall()
-
-        # close connection
-        conn.close()
+        self.c.execute(query)
+        return self.c.fetchall()
 
     # This method will take a parsed list and reorganise the order and convert
     # keywords to table names.
