@@ -8,32 +8,14 @@ class Database:
         self.conn = sqlite3.connect("database.db");
         self.c = self.conn.cursor()
 
-    # This executes the query for 'COUNTRY gdp'
-    # @param country - the given country
-    # @return a list of GDPs
-    def gdp_query(self, country):
-        self.c.execute("SELECT fldGDP FROM tblCountries WHERE pmkCountryCode = ?;", (country,))
-        return self.c.fetchall()
-
-    # This executes the query for 'COUNTRY population'
-    # @param population - the given population
-    # @return a list of populations
-    def population_query(self, population):
-        self.c.execute("SELECT fldCountry FROM tblCountries WHERE fldPopulation = ?;", (population,))
-        return self.c.fetchall()
-
-    # This executes the query for 'LIST discipline'
-    # @return a list all disciplines
-    def list_query(self):
-        self.c.execute("SELECT fldDiscipline FROM tblSummerGames;")
-        return self.c.fetchall()
-
+    # ~~~~~~~~~~~~~~~~~~~~START QUERIES~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     # This executes the query for 'COUNTRY DISCIPLINE athlete'
     # @param country - the given country
     # @param discipline - the given discipline
     # @return a list of athletes
     def athlete_query(self, country, discipline):
-        self.c.execute("SELECT fldAthlete FROM tblSummerGames WHERE fnkCountryCode = ?, fldDiscipline = ?;", (country, discipline,))
+        self.c.execute("SELECT fldAthlete FROM tblSummerGames WHERE fnkCountryCode = ?, fldDiscipline = ?;",
+                       (country, discipline,))
         return self.c.fetchall()
 
     # This executes the query for 'ATHLETE event'
@@ -43,9 +25,29 @@ class Database:
         self.c.execute("SELECT fldEvent FROM tblSummerGames WHERE fldAthlete = ?;", (athlete,))
         return self.c.fetchall()
 
+    # This executes the query for 'COUNTRY gdp'
+    # @param country - the given country
+    # @return a list of GDPs
+    def gdp_query(self, country):
+        self.c.execute("SELECT fldGDP FROM tblCountries WHERE pmkCountryCode = ?;", (country,))
+        return self.c.fetchall()
+
+    # This executes the query for 'LIST discipline'
+    # @return a list all disciplines
+    def list_query(self):
+        self.c.execute("SELECT fldDiscipline FROM tblSummerGames;")
+        return self.c.fetchall()
+
+    # This executes the query for 'COUNTRY population'
+    # @param population - the given population
+    # @return a list of populations
+    def population_query(self, population):
+        self.c.execute("SELECT fldCountry FROM tblCountries WHERE fldPopulation = ?;", (population,))
+        return self.c.fetchall()
+    # ~~~~~~~~~~~~~~~~~~~~~~~~~END QUERIES~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
     # This method makes our database, table, and populates the data
     def load_data(self):
-
         # Create tables
         try:
             self.c.execute(
@@ -123,41 +125,8 @@ class Database:
         # print(data)
         return data
 
-    # This method will take a converted list and will assign column names
-    # associated with the commands. Checks that number of strings in list matches
-    # the number of strings the corresponding command. 
-    # Accepts: converted list
-    # Returns: list with user input paired with column names
-    def command_to_columns(input):
-        cols = []
-        if len(input) == 2 :
-            if input[1] == "fldPopulation":
-                cols=[("fldCountry",input[0]),"fldPopulation")
-                    
-            elif input[1] == "fldGDP":
-                cols=[("fldCountry",input[0]),"fldGDP"]
-                
-            elif input[1] == "fldDiscipline" and input[0]=="list":
-                cols=[("fldDiscipline")]
-                    
-            elif input[1] == "fldEvent":
-                cols = [("fldAthlete", input[0]),"fldEvent"]
-
-            elif input[0] == "about":
-                cols=[("")]
-
-        elif len(input) == 3 :             
-            if input[3] == "fldAthlete":       
-                cols= [("fldCountry",input[0]), ("fldDiscipline",input[1]),"fldAthlete"]
-
-        else :
-            print_input_error()
-        return cols
-
-
-
-    # Takes csv file name string as argument, splits columns into separate lists. The zeroth value of each list is the
-    # name of the column.
+    # Takes csv file name string as argument, splits columns into separate lists. The zeroth value of each list is
+    # the name of the column.
     # Returns a 2d list of these lists. Zeroth value is first col, and so on
     def __process_data(filename):
         f = open(filename, 'r')
@@ -197,4 +166,37 @@ class Database:
             out[i].insert(0, titles[i])
 
         return out
+
+    # This method will take a converted list and will assign column names
+    # associated with the commands. Checks that number of strings in list matches
+    # the number of strings the corresponding command. 
+    # Accepts: converted list
+    # Returns: list with user input paired with column names
+    # def command_to_columns(input):
+    #     cols = []
+    #     if len(input) == 2 :
+    #         if input[1] == "fldPopulation":
+    #             cols=[("fldCountry",input[0]),"fldPopulation")
+    #
+    #         elif input[1] == "fldGDP":
+    #             cols=[("fldCountry",input[0]),"fldGDP"]
+    #
+    #         elif input[1] == "fldDiscipline" and input[0]=="list":
+    #             cols=[("fldDiscipline")]
+    #
+    #         elif input[1] == "fldEvent":
+    #             cols = [("fldAthlete", input[0]),"fldEvent"]
+    #
+    #         elif input[0] == "about":
+    #             cols=[("")]
+    #
+    #     elif len(input) == 3 :
+    #         if input[3] == "fldAthlete":
+    #             cols= [("fldCountry",input[0]), ("fldDiscipline",input[1]),"fldAthlete"]
+    #
+    #     else :
+    #         print_input_error()
+    #     return cols
+
+
 
