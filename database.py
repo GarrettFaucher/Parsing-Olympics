@@ -194,18 +194,17 @@ class Database:
             elif input[1].lower() == "gdp":
                 return_val = self.gdp_query(input[0])
                  
-            elif input[1] == "fldDiscipline" and input[0]=="list":
+            elif input[1] == input[0]=="list":
                 return_val = self.list_query()
     
-            elif input[1] == "fldEvent":
-                 cols = [("fldAthlete", input[0]),"fldEvent"]
+            elif input[1] == "event":
                  return_val = self.event_query(input[0])
     
             elif input[0] == "about":
                  return_val = self.about_query(input[1])
     
          elif len(input) == 3 :
-             if input[3] == "fldAthlete":
+             if input[3] == "athlete":
                  return_val = self.athlete_query(input[0],input[1])
     
          else :
