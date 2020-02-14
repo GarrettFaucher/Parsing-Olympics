@@ -194,7 +194,7 @@ class Database:
             elif input[1].lower() == "gdp":
                 return_val = self.gdp_query(input[0])
                  
-            elif input[1] == input[0]=="list":
+            elif input[0]=="list":
                 return_val = self.list_query()
     
             elif input[1] == "event":
