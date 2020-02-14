@@ -22,6 +22,7 @@ class Database:
     # @param athlete - the given athlete must be in format '"LAST, First"'
     # @return a list of events
     def event_query(self, athlete):
+        athlete = '"' + athlete + '"'
         self.c.execute("SELECT fldEvent FROM tblSummerGames WHERE fldAthlete = ?;", (athlete,))
         return self.c.fetchall()
 
@@ -44,6 +45,18 @@ class Database:
     def population_query(self, population):
         self.c.execute("SELECT fldCountry FROM tblCountries WHERE fldPopulation = ?;", (population,))
         return self.c.fetchall()
+
+    # This executes the query for 'ABOUT athlete'
+    # @param athlete - the given athlete
+    # @return a list of events and countries in the format [(event, country),]
+    def about_query(self, athlete):
+        athlete = '"' + athlete + '"'
+        self.c.execute("SELECT fnkCountryCode FROM tblSummerGames WHERE fldAthlete = ?", (athlete,))
+        country_code_list = self.c.fetchall()
+        country_code = country_code_list[0][0]
+        self.c.execute("SELECT tblSummerGames.fldEvent, tblCountries.fldCountry FROM tblSummerGames INNER JOIN tblCountries ON tblCountries.pmkCountryCode = ? WHERE tblSummerGames.fldAthlete = ?", (country_code, athlete,))
+        return self.c.fetchall()
+
     # ~~~~~~~~~~~~~~~~~~~~~~~~~END QUERIES~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
     # This method makes our database, table, and populates the data
