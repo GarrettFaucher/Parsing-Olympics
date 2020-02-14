@@ -51,7 +51,7 @@ def print_help():
     
     help_msg = "Enter a command in the form of one of these acceptable formats:\n\n" \
                'List discipline                     - Lists all disciplines in the table\n' \
-               '"Country" "Discipline" athlete      - Returns athlete(s) from the country and discipline specified. \n' \
+               '"Country Abbreviation" "Discipline" athlete      - Returns athlete(s) from the country and discipline specified. \n' \
                'About "Athlete"                     - Returns the country and event(s) of the athlete specified. \n' \
                '"Athlete" event                     - Returns the event(s) of the given athlete. \n' \
                '"Country" population                - Returns the population of the country specified\n'\

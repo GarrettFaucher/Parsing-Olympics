@@ -14,8 +14,7 @@ class Database:
     # @param discipline - the given discipline
     # @return a list of athletes
     def athlete_query(self, country, discipline):
-        self.c.execute("SELECT fldAthlete FROM tblSummerGames WHERE fnkCountryCode = ?, fldDiscipline = ?;",
-                       (country, discipline,))
+        self.c.execute("SELECT fldAthlete FROM tblSummerGames WHERE fnkCountryCode = ? AND fldDiscipline = ?;", (country, discipline,))
         return self.c.fetchall()
 
     # This executes the query for 'ATHLETE event'
@@ -30,13 +29,13 @@ class Database:
     # @param country - the given country
     # @return a list of GDPs
     def gdp_query(self, country):
-        self.c.execute("SELECT fldGDP FROM tblCountries WHERE pmkCountryCode = ?;", (country,))
+        self.c.execute("SELECT fldGDP FROM tblCountries WHERE fldCountry = ?;", (country,))
         return self.c.fetchall()
 
     # This executes the query for 'LIST discipline'
     # @return a list all disciplines
     def list_query(self):
-        self.c.execute("SELECT fldDiscipline FROM tblSummerGames;")
+        self.c.execute("SELECT DISTINCT fldDiscipline FROM tblSummerGames;")
         return self.c.fetchall()
 
     # This executes the query for 'COUNTRY population'
@@ -96,7 +95,7 @@ class Database:
         gender = summer_data[4]
         event = summer_data[5]
 
-        for j in range(len(summer_data)):
+        for j in range(len(summer_data[0])):
             query_string = "INSERT INTO tblSummerGames VALUES( ?, ?, ?, ?, ?, ?)"
             self.c.execute(query_string, (sport[j], discipline[j], athlete[j], country_code[j], gender[j], event[j]))
 
@@ -204,7 +203,7 @@ class Database:
                  return_val = self.about_query(input[1])
     
          elif len(input) == 3 :
-             if input[3] == "athlete":
+             if input[2] == "athlete":
                  return_val = self.athlete_query(input[0],input[1])
     
          else :
