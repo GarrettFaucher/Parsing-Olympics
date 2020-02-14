@@ -185,7 +185,7 @@ class Database:
     # the number of strings the corresponding command. 
     # Accepts: parsed list
     # Returns: return value fro appropriate sql call
-    def command_to_columns(input):
+    def parsed_to_sql(input):
          return_val = []
          if len(input) == 2 :
             if input[1].lower == "population":
