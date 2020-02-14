@@ -42,8 +42,8 @@ class Database:
     # This executes the query for 'COUNTRY population'
     # @param population - the given population
     # @return a list of populations
-    def population_query(self, population):
-        self.c.execute("SELECT fldCountry FROM tblCountries WHERE fldPopulation = ?;", (population,))
+    def population_query(self, country):
+        self.c.execute("SELECT fldPopulation FROM tblCountries WHERE fldCountry = ?;", (country,))
         return self.c.fetchall()
 
     # This executes the query for 'ABOUT athlete'
@@ -185,31 +185,32 @@ class Database:
     # the number of strings the corresponding command. 
     # Accepts: parsed list
     # Returns: return value fro appropriate sql call
-    def parsed_to_sql(input):
+    def parsed_to_sql(self, input):
          return_val = []
          if len(input) == 2 :
-            if input[1].lower == "population":
-                return_val = population_query(input[0])
+            if input[1].lower() == "population":
+                return_val = self.population_query(input[0])
     
-            elif input[1].lower == "gdp":
-                return_val = gdp_query(input[0])
+            elif input[1].lower() == "gdp":
+                return_val = self.gdp_query(input[0])
                  
             elif input[1] == "fldDiscipline" and input[0]=="list":
-                return_val = list_query()
+                return_val = self.list_query()
     
             elif input[1] == "fldEvent":
                  cols = [("fldAthlete", input[0]),"fldEvent"]
-                 return_val = event_query(input[0])
+                 return_val = self.event_query(input[0])
     
             elif input[0] == "about":
-                 return_val = about_query(input[1])
+                 return_val = self.about_query(input[1])
     
          elif len(input) == 3 :
              if input[3] == "fldAthlete":
-                 return_val = athlete_query(input[0],input[1])
+                 return_val = self.athlete_query(input[0],input[1])
     
          else :
-             print_input_error()
+             print("Error.")
+             #self.print_input_error()
          return return_val
 
 
