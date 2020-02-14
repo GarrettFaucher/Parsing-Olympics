@@ -183,8 +183,8 @@ class Database:
     # This method will take a parsed list and will call the associated SQL query.
     # Checks that number of strings in list matches
     # the number of strings the corresponding command. 
-    # Accepts: converted list
-    # Returns: list with user input paired with column names
+    # Accepts: parsed list
+    # Returns: return value fro appropriate sql call
     def command_to_columns(input):
          return_val = []
          if len(input) == 2 :
@@ -202,7 +202,7 @@ class Database:
                  return_val = event_query(input[0])
     
             elif input[0] == "about":
-                 cols=[("")]
+                 return_val = about_query(input[1])
     
          elif len(input) == 3 :
              if input[3] == "fldAthlete":
