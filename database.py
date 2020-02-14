@@ -167,36 +167,37 @@ class Database:
 
         return out
 
-    # This method will take a converted list and will assign column names
-    # associated with the commands. Checks that number of strings in list matches
+    # This method will take a parsed list and will call the associated SQL query.
+    # Checks that number of strings in list matches
     # the number of strings the corresponding command. 
     # Accepts: converted list
     # Returns: list with user input paired with column names
-    # def command_to_columns(input):
-    #     cols = []
-    #     if len(input) == 2 :
-    #         if input[1] == "fldPopulation":
-    #             cols=[("fldCountry",input[0]),"fldPopulation")
-    #
-    #         elif input[1] == "fldGDP":
-    #             cols=[("fldCountry",input[0]),"fldGDP"]
-    #
-    #         elif input[1] == "fldDiscipline" and input[0]=="list":
-    #             cols=[("fldDiscipline")]
-    #
-    #         elif input[1] == "fldEvent":
-    #             cols = [("fldAthlete", input[0]),"fldEvent"]
-    #
-    #         elif input[0] == "about":
-    #             cols=[("")]
-    #
-    #     elif len(input) == 3 :
-    #         if input[3] == "fldAthlete":
-    #             cols= [("fldCountry",input[0]), ("fldDiscipline",input[1]),"fldAthlete"]
-    #
-    #     else :
-    #         print_input_error()
-    #     return cols
+    def command_to_columns(input):
+         return_val = []
+         if len(input) == 2 :
+            if input[1].lower == "population":
+                return_val = population_query(input[0])
+    
+            elif input[1].lower == "gdp":
+                return_val = gdp_query(input[0])
+                 
+            elif input[1] == "fldDiscipline" and input[0]=="list":
+                return_val = list_query()
+    
+            elif input[1] == "fldEvent":
+                 cols = [("fldAthlete", input[0]),"fldEvent"]
+                 return_val = event_query(input[0])
+    
+            elif input[0] == "about":
+                 cols=[("")]
+    
+         elif len(input) == 3 :
+             if input[3] == "fldAthlete":
+                 return_val = athlete_query(input[0],input[1])
+    
+         else :
+             print_input_error()
+         return return_val
 
 
 
