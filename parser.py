@@ -1,4 +1,5 @@
 # THis is the file for the Python CLI
+import database
 
 # This method will split a string into an array of strings of keywords and
 # variables to be used in SQL queries.
@@ -73,9 +74,14 @@ print_help()
 
 in_use = True
 
+db = database.Database()
+
 while in_use:
     
     command = input(">")
+    
+    if command.lower() == "load data":
+        db.load_data()
     
     if command.lower() == "stop":
         in_use = False
