@@ -15,35 +15,86 @@ class Database:
     # @return a list of athletes
     def athlete_query(self, country, discipline):
         self.c.execute("SELECT fldAthlete FROM tblSummerGames WHERE fnkCountryCode = ? AND fldDiscipline = ?;", (country, discipline,))
-        return self.c.fetchall()
+        out = self.c.fetchall()
+        outstring = country + " had the following athletes win in " + discipline + ":\n"
+
+        if out != []:
+            for athtuple in out:
+                athname = athtuple[0]
+                athname = athname.strip('"')
+                outstring += (athname+"\n")
+        else:
+            outstring = "No winning athletes from " + country + " in " + discipline
+            
+        return outstring
 
     # This executes the query for 'ATHLETE event'
     # @param athlete - the given athlete must be in format '"LAST, First"'
     # @return a list of events
     def event_query(self, athlete):
-        athlete = '"' + athlete + '"'
-        self.c.execute("SELECT fldEvent FROM tblSummerGames WHERE fldAthlete = ?;", (athlete,))
-        return self.c.fetchall()
+        athlete1 = '"' + athlete + '"'
+        self.c.execute("SELECT fldEvent FROM tblSummerGames WHERE fldAthlete = ?;", (athlete1,))
+        out = self.c.fetchall()
+        outstring = athlete + " has won the following events:\n"
+        
+        if out != []:
+            for evetuple in out:
+                evename = evetuple[0]
+                evename = evename.strip('"')
+                outstring += (evename+"\n")
+        else:
+            outstring = "No event wins by " + athlete
+            
+        return outstring
 
     # This executes the query for 'COUNTRY gdp'
     # @param country - the given country
     # @return a list of GDPs
     def gdp_query(self, country):
         self.c.execute("SELECT fldGDP FROM tblCountries WHERE fldCountry = ?;", (country,))
-        return self.c.fetchall()
+        out = self.c.fetchall()
+        outstring = country + " has a GDP Per Capita of %.2f USD"
+        
+
+        if out != []:
+            for gdp in out:
+                outgdp = gdp[0]
+                outstring = outstring%outgdp
+        else:
+            outstring = "No result - check your arguments and try again"
+            
+        return outstring
 
     # This executes the query for 'LIST discipline'
     # @return a list all disciplines
     def list_query(self):
         self.c.execute("SELECT DISTINCT fldDiscipline FROM tblSummerGames;")
-        return self.c.fetchall()
+        out = self.c.fetchall()
+        outstring = "The following disciplines are availabe for query:\n"
+
+        for distuple in out:
+            disname = distuple[0]
+            disname = disname.strip('"')
+            outstring += (disname+"\n")
+            
+        return outstring
 
     # This executes the query for 'COUNTRY population'
     # @param population - the given population
     # @return a list of populations
     def population_query(self, country):
         self.c.execute("SELECT fldPopulation FROM tblCountries WHERE fldCountry = ?;", (country,))
-        return self.c.fetchall()
+        out = self.c.fetchall()
+        outstring = country + " has a population of %d"
+
+        if out != []:
+            for poptuple in out:
+                pop = poptuple[0]
+                outstring = outstring%pop
+        else:
+            outstring = "No result - check your arguments and try again"
+            
+        return outstring
 
     # This executes the query for 'ABOUT athlete'
     # @param athlete - the given athlete
@@ -52,9 +103,21 @@ class Database:
         athlete = '"' + athlete + '"'
         self.c.execute("SELECT fnkCountryCode FROM tblSummerGames WHERE fldAthlete = ?", (athlete,))
         country_code_list = self.c.fetchall()
-        country_code = country_code_list[0][0]
-        self.c.execute("SELECT tblSummerGames.fldEvent, tblCountries.fldCountry FROM tblSummerGames INNER JOIN tblCountries ON tblCountries.pmkCountryCode = ? WHERE tblSummerGames.fldAthlete = ?", (country_code, athlete,))
-        return self.c.fetchall()
+        if country_code_list != []:
+            country_code = country_code_list[0][0]
+            self.c.execute("SELECT tblSummerGames.fldEvent, tblCountries.fldCountry FROM tblSummerGames INNER JOIN tblCountries ON tblCountries.pmkCountryCode = ? WHERE tblSummerGames.fldAthlete = ?", (country_code, athlete,))
+        out = self.c.fetchall()
+        outstring = athlete + " has won the following events:\n"
+
+        if out != []:
+            for athtuple in out:
+                dets = athtuple[0]
+                dets = dets.strip('"')
+                outstring += (dets+"\n")
+        else:
+            outstring = "No event wins found for " + athlete
+            
+        return outstring
 
     # ~~~~~~~~~~~~~~~~~~~~~~~~~END QUERIES~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -177,7 +240,7 @@ class Database:
                  return_val = self.athlete_query(input[0],input[1])
     
          else :
-             print("Error.")
+             print("Error - invalid input.")
              #self.print_input_error()
          return return_val
 
