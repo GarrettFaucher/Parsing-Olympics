@@ -44,7 +44,7 @@ def print_welcome():
 
     welcomemsg = """\nThis program searches a database of the London 2012 Olympic gold medalists and the countries they are from. \n\nTo view a list of available commands, type 'help'.\n\nCommands follow the general format of <argument> <argument> <return>, e.g.: \n\n>"Mexico" "swimming" athlete \n\nwill return the list of Mexican athletes who medaled in swimming events.\nTo view this message again, enter 'welcome'. \nTo view the list of acceptable commands, enter 'help'."""
 
-    print(welcomemsg)
+    return welcomemsg
 
 
 # This method prints a list of available commands.
@@ -58,41 +58,50 @@ def print_help():
                '"Country" population                - Returns the population of the country specified\n'\
                '"Country" gdp                       - Returns the GDP of the country specified\n'\
                'stop                                - Ends the program\n'\
+               'load data                           - loads the data\n'\
                '\n'\
                'All arguments should be passed with quotation marks, and names should follow the form of "LASTNAME, Firstname".'
 
-    print(help_msg)
+    return help_msg
 
 
 def print_input_error():
     error_msg= "INPUT ERROR. This is not an acceptable command. Enter help for a list of commands." 
     print(error_msg)
 
-print_welcome()
+print(print_welcome())
 
-print_help()
+print(print_help())
 
 in_use = True
+loaded = False
 
 db = database.Database()
 
 while in_use:
     
     command = input(">")
+    output = ""
     
     if command.lower() == "load data":
         db.load_data()
+        output = "data loaded."
+        loaded = True
     
-    if command.lower() == "stop":
+    elif command.lower() == "stop":
         in_use = False
+        output = "halting..."
         
-    if command.lower() == "welcome":
-        print_welcome()
+    elif command.lower() == "welcome":
+        output = print_welcome()
     
-    if command.lower() == "help":
-        print_help()
+    elif command.lower() == "help":
+        output = print_help()
 
-    split_command = parse(command)
-
-
-    
+    else:
+        if loaded:
+            split_command = parse(command)
+            output = db.parsed_to_sql(split_command)
+        else:
+            output = "data not loaded yet."
+    print(output)
