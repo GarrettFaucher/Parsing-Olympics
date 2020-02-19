@@ -240,7 +240,7 @@ class Database:
                  return_val = self.athlete_query(input[0],input[1])
     
          else :
-             print("Error - invalid input.")
+             return_val = "Error - invalid input"
              #self.print_input_error()
          return return_val
 
