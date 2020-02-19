@@ -226,7 +226,7 @@ class Database:
             elif input[1].lower() == "gdp":
                 return_val = self.gdp_query(input[0])
                  
-            elif input[0].lower()=="list" and input[1].lower()="discipline":
+            elif input[0].lower()=="list" and input[1].lower()=="discipline":
                 return_val = self.list_query()
     
             elif input[1].lower() == "event":
