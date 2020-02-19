@@ -105,4 +105,7 @@ while in_use:
         split_command = parse(command)
         output = db.parsed_to_sql(split_command)
         
+    if output == []:
+        output = "Error - input invalid"
+    
     print(output)
