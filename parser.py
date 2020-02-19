@@ -99,9 +99,10 @@ while in_use:
         output = print_help()
 
     else:
-        if loaded:
-            split_command = parse(command)
-            output = db.parsed_to_sql(split_command)
-        else:
-            output = "data not loaded yet."
+        if not loaded:
+            db.load_data()
+            loaded = True
+        split_command = parse(command)
+        output = db.parsed_to_sql(split_command)
+        
     print(output)
