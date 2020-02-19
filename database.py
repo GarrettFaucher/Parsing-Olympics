@@ -103,11 +103,12 @@ class Database:
         athlete = '"' + athlete + '"'
         self.c.execute("SELECT fnkCountryCode FROM tblSummerGames WHERE fldAthlete = ?", (athlete,))
         country_code_list = self.c.fetchall()
+        country_code = ""
         if country_code_list != []:
             country_code = country_code_list[0][0]
             self.c.execute("SELECT tblSummerGames.fldEvent, tblCountries.fldCountry FROM tblSummerGames INNER JOIN tblCountries ON tblCountries.pmkCountryCode = ? WHERE tblSummerGames.fldAthlete = ?", (country_code, athlete,))
         out = self.c.fetchall()
-        outstring = athlete + " has won the following events:\n"
+        outstring = athlete + "\nCountry: " + country_code + "\nEvents:\n"
 
         if out != []:
             for athtuple in out:
@@ -115,7 +116,7 @@ class Database:
                 dets = dets.strip('"')
                 outstring += (dets+"\n")
         else:
-            outstring = "No event wins found for " + athlete
+            outstring = "No data found for " + athlete
             
         return outstring
 
