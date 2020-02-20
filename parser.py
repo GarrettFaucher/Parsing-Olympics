@@ -6,6 +6,10 @@ import database
 # Accepts: string
 # Returns: list
 def parse(input):
+    """
+    input: string of input arguments
+    returns list of strings
+    """
 
     # Finds the string inside of the quotes
     countS = -1
@@ -39,7 +43,7 @@ def parse(input):
 
     return data
 
-
+#prints the welcome message
 def print_welcome():
 
     welcomemsg = """\nThis program searches a database of the London 2012 Olympic gold medalists and the countries they are from. \n\nTo view a list of available commands, type 'help'.\n\nCommands follow the general format of <argument> <argument> <return>, e.g.: \n\n>"Mexico" "swimming" athlete \n\nwill return the list of Mexican athletes who medaled in swimming events.\nTo view this message again, enter 'welcome'. \nTo view the list of acceptable commands, enter 'help'."""
@@ -64,11 +68,12 @@ def print_help():
 
     return help_msg
 
-
+#prints an error message
 def print_input_error():
     error_msg= "INPUT ERROR. This is not an acceptable command. Enter help for a list of commands." 
     print(error_msg)
 
+#welcome messages
 print(print_welcome())
 
 print(print_help())
@@ -78,8 +83,9 @@ loaded = False
 
 db = database.Database()
 
+#loop until otherwise directed
 while in_use:
-    
+
     command = input(">")
     output = ""
     
